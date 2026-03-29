@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: "AIエージェント導入のROI計算、ツール月額費用比較、業務自動化シミュレーター、プロンプトコスト計算機。エージェンティックAIで業務効率化を数値で可視化。",
 };
 
-const GA_ID = "G-PLACEHOLDER";
+const GA_ID = "G-9PDRJZPH17";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
