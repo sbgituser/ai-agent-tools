@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ai-agent-tools.kuras-plus.com/sitemap.xml

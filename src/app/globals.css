@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Design tokens ─────────────────────────────────────────────────────────── */
+:root {
+  /* Brand — deep purple (AI・テクノロジー・革新) */
+  --primary: #5b21b6;
+  --primary-hover: #6d28d9;
+  --primary-light: #ede9fe;
+
+  /* Accent — violet */
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-soft: #f5f3ff;
+
+  /* Backgrounds */
+  --bg: #faf9ff;          /* ページ背景: ごく薄いパープルホワイト */
+  --bg-card: #ffffff;     /* カード背景: 純白 */
+  --bg-soft: #f5f3ff;     /* チップ・タグ背景 */
+  --bg-section: #f3f0ff;  /* セクション切替背景 */
+
+  /* Text */
+  --text: #1e1b4b;        /* メインテキスト: ディープインディゴ */
+  --text-muted: #6b7280;  /* 補助テキスト */
+  --text-light: #9ca3af;  /* 淡いテキスト */
+
+  /* Border */
+  --border: #e5e7eb;
+  --border-light: #f3f4f6;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────────── */
+html, body {
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f3f0ff;
+}
+::-webkit-scrollbar-thumb {
+  background: #c4b5fd;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a78bfa;
+}
+
+/* ── Utilities ──────────────────────────────────────────────────────────────── */
+.tool-card-hover {
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.tool-card-hover:hover {
+  box-shadow: 0 8px 24px rgba(91, 33, 182, 0.12), 0 2px 8px rgba(91, 33, 182, 0.06);
+  transform: translateY(-2px);
+}
+
+/* ── Calculator styles ──────────────────────────────────────────────────────── */
+.input-field {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  background: white;
+  color: var(--text);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.input-field:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+}
+
+.result-card {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  color: white;
+}
