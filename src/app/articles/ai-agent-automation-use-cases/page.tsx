@@ -2,10 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "AIエージェントで業務を自動化する方法｜具体的な5つのユースケース | AI Agent Tools",
-  description: "AIエージェントによる業務自動化の具体的な5つのユースケースを企業事例付きで解説。メール・資料作成・データ処理・リサーチ・顧客対応の自動化手順。",
+  description:
+    "AIエージェントによる業務自動化の具体的な5つのユースケースを企業事例付きで解説。メール・資料作成・データ処理・リサーチ・顧客対応の自動化手順。",
+  openGraph: {
+    title: "AIエージェントで業務を自動化する方法｜具体的な5つのユースケース",
+    description: "実際の企業事例をもとに、AIエージェントによる業務自動化の具体的な手順を解説。",
+    images: [{ url: "/ogp/articles/ai-agent-automation-use-cases.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/ogp/articles/ai-agent-automation-use-cases.png"],
+  },
 };
 
 export default function AIAgentUseCasesPage() {
@@ -14,13 +25,13 @@ export default function AIAgentUseCasesPage() {
       <Header />
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
-        <nav className="flex items-center gap-2 text-xs mb-6" style={{ color: "var(--text-muted)" }}>
-          <Link href="/" className="hover:opacity-70">ホーム</Link>
-          <span>›</span>
-          <Link href="/articles" className="hover:opacity-70">記事</Link>
-          <span>›</span>
-          <span>業務自動化ユースケース</span>
-        </nav>
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "記事", href: "/articles" },
+            { label: "業務自動化ユースケース" },
+          ]}
+        />
 
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
@@ -194,6 +205,51 @@ export default function AIAgentUseCasesPage() {
             </Link>
           </div>
         </article>
+
+        {/* ── 関連ツール ── */}
+        <section className="mt-10">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            🔧 関連計算ツール
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/tools/time-saving-simulator",
+                emoji: "⏱️",
+                title: "業務自動化 時間節約シミュレーター",
+                desc: "年間節約時間・人件費換算を可視化",
+              },
+              {
+                href: "/tools/roi-calculator",
+                emoji: "💰",
+                title: "AIエージェント導入ROI計算機",
+                desc: "月間削減額・投資回収期間を即計算",
+              },
+              {
+                href: "/tools/cost-comparison",
+                emoji: "⚖️",
+                title: "AIツール月額費用比較ツール",
+                desc: "ChatGPT・Claude・Geminiを比較",
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{tool.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {tool.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{tool.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  無料で計算する →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-10">
           <FAQ

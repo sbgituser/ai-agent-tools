@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 interface Inputs {
   monthlyHours: number;
@@ -38,6 +39,18 @@ function fmt(n: number) {
   return Math.round(n).toLocaleString("ja-JP");
 }
 
+const webAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "AIエージェント導入ROI計算機",
+  url: "https://ai-agent-tools.kuras-plus.com/tools/roi-calculator",
+  description:
+    "自動化対象業務の時間・人件費・ツール費用を入力すると、月間コスト削減額・投資回収期間・年間ROI・3年累積効果を即座に算出します。",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "All",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
+};
+
 export default function ROICalculatorPage() {
   const [inputs, setInputs] = useState<Inputs>({
     monthlyHours: 80,
@@ -55,9 +68,19 @@ export default function ROICalculatorPage() {
 
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: "var(--bg)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <Header toolName="ROI計算機" toolEmoji="💰" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "ROI計算機" },
+          ]}
+        />
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>
             AIエージェント導入ROI計算機
@@ -317,6 +340,51 @@ export default function ROICalculatorPage() {
               },
             ]}
           />
+        </section>
+
+        {/* ── 関連記事 ── */}
+        <section className="mt-12">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            📖 関連記事
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/articles/how-to-calculate-ai-roi",
+                emoji: "💹",
+                title: "AI導入のROIを計算する方法",
+                desc: "経営者向けROI計算式と意思決定フレームワーク",
+              },
+              {
+                href: "/articles/ai-agent-automation-use-cases",
+                emoji: "⚡",
+                title: "AIエージェントで業務を自動化",
+                desc: "具体的な5つのユースケースを解説",
+              },
+              {
+                href: "/articles/what-is-agentic-ai",
+                emoji: "🤖",
+                title: "エージェンティックAIとは？",
+                desc: "2026年に知っておくべき新概念を解説",
+              },
+            ].map((article) => (
+              <a
+                key={article.href}
+                href={article.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{article.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {article.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{article.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  記事を読む →
+                </span>
+              </a>
+            ))}
+          </div>
         </section>
       </main>
     </div>

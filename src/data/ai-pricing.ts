@@ -1,6 +1,8 @@
 // AI Tool Pricing Data — 2026年3月時点
 // 定期的な更新が必要です
 
+export const DATA_UPDATED_AT = "2026年3月";
+
 export interface Plan {
   name: string;
   monthlyJPY: number; // 月額円（1USD=150円換算）

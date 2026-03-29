@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 interface Category {
   id: string;
@@ -20,6 +21,18 @@ const CATEGORIES: Category[] = [
   { id: "schedule", emoji: "📅", label: "スケジュール・会議調整", automationRate: 50, description: "候補日提案・議事録・リマインド" },
   { id: "customer", emoji: "💬", label: "顧客対応・サポート", automationRate: 60, description: "FAQ回答・チケット分類・エスカレーション" },
 ];
+
+const webAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "業務自動化 時間節約シミュレーター",
+  url: "https://ai-agent-tools.kuras-plus.com/tools/time-saving-simulator",
+  description:
+    "メール・資料作成・データ入力など業務カテゴリ別の週間時間を入力。AI導入後の削減時間・年間節約時間・人件費換算を可視化します。",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "All",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
+};
 
 export default function TimeSavingSimulatorPage() {
   const [weeklyHours, setWeeklyHours] = useState<Record<string, number>>({
@@ -50,9 +63,19 @@ export default function TimeSavingSimulatorPage() {
 
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: "var(--bg)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <Header toolName="時間節約シミュレーター" toolEmoji="⏱️" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "時間節約シミュレーター" },
+          ]}
+        />
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>
             業務自動化 時間節約シミュレーター
@@ -266,7 +289,7 @@ export default function TimeSavingSimulatorPage() {
           </div>
         </section>
 
-        <section className="mt-10">
+        <section className="mt-12">
           <FAQ
             title="時間節約シミュレーターについてよくある質問"
             items={[
@@ -284,6 +307,51 @@ export default function TimeSavingSimulatorPage() {
               },
             ]}
           />
+        </section>
+
+        {/* ── 関連記事 ── */}
+        <section className="mt-12">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            📖 関連記事
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/articles/ai-agent-automation-use-cases",
+                emoji: "⚡",
+                title: "AIエージェントで業務を自動化",
+                desc: "具体的な5つのユースケースを解説",
+              },
+              {
+                href: "/articles/how-to-calculate-ai-roi",
+                emoji: "💹",
+                title: "AI導入のROIを計算する方法",
+                desc: "経営者向けROI計算式と意思決定フレームワーク",
+              },
+              {
+                href: "/articles/what-is-agentic-ai",
+                emoji: "🤖",
+                title: "エージェンティックAIとは？",
+                desc: "2026年に知っておくべき新概念を解説",
+              },
+            ].map((article) => (
+              <a
+                key={article.href}
+                href={article.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{article.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {article.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{article.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  記事を読む →
+                </span>
+              </a>
+            ))}
+          </div>
         </section>
       </main>
     </div>

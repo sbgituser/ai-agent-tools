@@ -2,10 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "ChatGPT vs Claude vs Gemini｜AIツール料金・性能比較【2026年最新】 | AI Agent Tools",
-  description: "ChatGPT・Claude・Gemini・Copilotの2026年最新料金と性能を徹底比較。テキスト生成・コード・データ分析・画像生成の用途別おすすめを解説。",
+  description:
+    "ChatGPT・Claude・Gemini・Copilotの2026年最新料金と性能を徹底比較。テキスト生成・コード・データ分析・画像生成の用途別おすすめを解説。",
+  openGraph: {
+    title: "ChatGPT vs Claude vs Gemini｜AIツール料金・性能比較【2026年最新】",
+    description: "主要AIツールの最新料金プランと性能を徹底比較。用途別おすすめ選定ガイド付き。",
+    images: [{ url: "/ogp/articles/ai-tool-comparison-2026.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/ogp/articles/ai-tool-comparison-2026.png"],
+  },
 };
 
 const jsonLd = {
@@ -25,13 +36,13 @@ export default function AIToolComparisonPage() {
       <Header />
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
-        <nav className="flex items-center gap-2 text-xs mb-6" style={{ color: "var(--text-muted)" }}>
-          <Link href="/" className="hover:opacity-70">ホーム</Link>
-          <span>›</span>
-          <Link href="/articles" className="hover:opacity-70">記事</Link>
-          <span>›</span>
-          <span>AIツール比較2026</span>
-        </nav>
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "記事", href: "/articles" },
+            { label: "AIツール比較2026" },
+          ]}
+        />
 
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
@@ -193,6 +204,51 @@ export default function AIToolComparisonPage() {
             </Link>
           </div>
         </article>
+
+        {/* ── 関連ツール ── */}
+        <section className="mt-10">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            🔧 関連計算ツール
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/tools/cost-comparison",
+                emoji: "⚖️",
+                title: "AIツール月額費用比較ツール",
+                desc: "利用人数・機能で費用をリアルタイム比較",
+              },
+              {
+                href: "/tools/prompt-cost-calculator",
+                emoji: "🔢",
+                title: "プロンプトコスト計算機",
+                desc: "API費用をモデル別に比較計算",
+              },
+              {
+                href: "/tools/roi-calculator",
+                emoji: "💰",
+                title: "AIエージェント導入ROI計算機",
+                desc: "月間削減額・投資回収期間を即計算",
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{tool.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {tool.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{tool.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  無料で計算する →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-10">
           <FAQ

@@ -2,10 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "プロンプトエンジニアリング入門｜AIを最大限活用するコツ | AI Agent Tools",
-  description: "効果的なプロンプトの書き方から Chain of Thought・Few-shot・ReActなど2026年最新手法まで実例付きで解説。API利用者向けのコスト削減テクニックも。",
+  description:
+    "効果的なプロンプトの書き方から Chain of Thought・Few-shot・ReActなど2026年最新手法まで実例付きで解説。API利用者向けのコスト削減テクニックも。",
+  openGraph: {
+    title: "プロンプトエンジニアリング入門｜AIを最大限活用するコツ",
+    description: "効果的なプロンプトの書き方から高度なテクニックまで、実例付きで徹底解説。",
+    images: [{ url: "/ogp/articles/prompt-engineering-guide.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/ogp/articles/prompt-engineering-guide.png"],
+  },
 };
 
 export default function PromptEngineeringGuidePage() {
@@ -14,13 +25,13 @@ export default function PromptEngineeringGuidePage() {
       <Header />
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
-        <nav className="flex items-center gap-2 text-xs mb-6" style={{ color: "var(--text-muted)" }}>
-          <Link href="/" className="hover:opacity-70">ホーム</Link>
-          <span>›</span>
-          <Link href="/articles" className="hover:opacity-70">記事</Link>
-          <span>›</span>
-          <span>プロンプトエンジニアリング入門</span>
-        </nav>
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "記事", href: "/articles" },
+            { label: "プロンプトエンジニアリング入門" },
+          ]}
+        />
 
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
@@ -186,6 +197,51 @@ export default function PromptEngineeringGuidePage() {
                 <p className="text-sm font-bold" style={{ color: "var(--text)" }}>{book.title}</p>
                 <span className="text-xs font-semibold mt-auto" style={{ color: "var(--accent)" }}>Amazonで探す →</span>
               </a>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 関連ツール ── */}
+        <section className="mt-10">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            🔧 関連計算ツール
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/tools/prompt-cost-calculator",
+                emoji: "🔢",
+                title: "プロンプトコスト計算機",
+                desc: "API費用をモデル別に比較計算",
+              },
+              {
+                href: "/tools/cost-comparison",
+                emoji: "⚖️",
+                title: "AIツール月額費用比較ツール",
+                desc: "ChatGPT・Claude・Geminiを比較",
+              },
+              {
+                href: "/tools/roi-calculator",
+                emoji: "💰",
+                title: "AIエージェント導入ROI計算機",
+                desc: "月間削減額・投資回収期間を即計算",
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{tool.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {tool.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{tool.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  無料で計算する →
+                </span>
+              </Link>
             ))}
           </div>
         </section>

@@ -2,10 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "AI導入のROIを計算する方法｜経営者向けガイド | AI Agent Tools",
-  description: "AI導入の投資対効果（ROI）計算式から意思決定フレームワークまで経営者向けに解説。正しいROI計算のポイントと稟議書作成のヒントも紹介。",
+  description:
+    "AI導入の投資対効果（ROI）計算式から意思決定フレームワークまで経営者向けに解説。正しいROI計算のポイントと稟議書作成のヒントも紹介。",
+  openGraph: {
+    title: "AI導入のROIを計算する方法｜経営者向けガイド",
+    description: "投資対効果の計算式から意思決定フレームワークまで、経営者向けに体系的に解説。",
+    images: [{ url: "/ogp/articles/how-to-calculate-ai-roi.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/ogp/articles/how-to-calculate-ai-roi.png"],
+  },
 };
 
 export default function HowToCalculateAIROIPage() {
@@ -14,13 +25,13 @@ export default function HowToCalculateAIROIPage() {
       <Header />
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
-        <nav className="flex items-center gap-2 text-xs mb-6" style={{ color: "var(--text-muted)" }}>
-          <Link href="/" className="hover:opacity-70">ホーム</Link>
-          <span>›</span>
-          <Link href="/articles" className="hover:opacity-70">記事</Link>
-          <span>›</span>
-          <span>AI導入ROI計算</span>
-        </nav>
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "記事", href: "/articles" },
+            { label: "AI導入ROI計算" },
+          ]}
+        />
 
         <div className="mb-8">
           <div className="flex items-center gap-2 mb-3">
@@ -162,6 +173,51 @@ export default function HowToCalculateAIROIPage() {
             </Link>
           </div>
         </article>
+
+        {/* ── 関連ツール ── */}
+        <section className="mt-10">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            🔧 関連計算ツール
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/tools/roi-calculator",
+                emoji: "💰",
+                title: "AIエージェント導入ROI計算機",
+                desc: "月間削減額・投資回収期間を即計算",
+              },
+              {
+                href: "/tools/time-saving-simulator",
+                emoji: "⏱️",
+                title: "業務自動化 時間節約シミュレーター",
+                desc: "年間節約時間・人件費換算を可視化",
+              },
+              {
+                href: "/tools/prompt-cost-calculator",
+                emoji: "🔢",
+                title: "プロンプトコスト計算機",
+                desc: "API費用をモデル別に比較計算",
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{tool.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {tool.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{tool.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  無料で計算する →
+                </span>
+              </Link>
+            ))}
+          </div>
+        </section>
 
         <section className="mt-10">
           <FAQ

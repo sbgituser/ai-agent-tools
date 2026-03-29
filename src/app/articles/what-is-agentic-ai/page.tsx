@@ -2,10 +2,21 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 export const metadata: Metadata = {
   title: "エージェンティックAIとは？2026年に知っておくべき新概念を解説 | AI Agent Tools",
-  description: "自律的に行動・判断するエージェンティックAIの仕組みと2026年のビジネス活用を解説。従来のAIチャットとの違い、主要プラットフォーム比較、導入事例も紹介。",
+  description:
+    "自律的に行動・判断するエージェンティックAIの仕組みと2026年のビジネス活用を解説。従来のAIチャットとの違い、主要プラットフォーム比較、導入事例も紹介。",
+  openGraph: {
+    title: "エージェンティックAIとは？2026年に知っておくべき新概念を解説",
+    description: "自律的に行動・判断するAIエージェントの仕組みと2026年のビジネス活用を解説。",
+    images: [{ url: "/ogp/articles/what-is-agentic-ai.png", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ["/ogp/articles/what-is-agentic-ai.png"],
+  },
 };
 
 const jsonLd = {
@@ -26,14 +37,13 @@ export default function WhatIsAgenticAIPage() {
       <Header />
 
       <main className="flex-1 max-w-3xl mx-auto w-full px-4 py-8">
-        {/* パンくず */}
-        <nav className="flex items-center gap-2 text-xs mb-6" style={{ color: "var(--text-muted)" }}>
-          <Link href="/" className="hover:opacity-70">ホーム</Link>
-          <span>›</span>
-          <Link href="/articles" className="hover:opacity-70">記事</Link>
-          <span>›</span>
-          <span>エージェンティックAIとは</span>
-        </nav>
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "記事", href: "/articles" },
+            { label: "エージェンティックAIとは" },
+          ]}
+        />
 
         {/* ヘッダー */}
         <div className="mb-8">
@@ -271,6 +281,51 @@ export default function WhatIsAgenticAIPage() {
                 <p className="text-sm font-bold" style={{ color: "var(--text)" }}>{book.title}</p>
                 <span className="text-xs font-semibold mt-auto" style={{ color: "var(--accent)" }}>Amazonで探す →</span>
               </a>
+            ))}
+          </div>
+        </section>
+
+        {/* ── 関連ツール ── */}
+        <section className="mt-10">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            🔧 関連計算ツール
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/tools/roi-calculator",
+                emoji: "💰",
+                title: "AIエージェント導入ROI計算機",
+                desc: "月間削減額・投資回収期間を即計算",
+              },
+              {
+                href: "/tools/time-saving-simulator",
+                emoji: "⏱️",
+                title: "業務自動化 時間節約シミュレーター",
+                desc: "年間節約時間・人件費換算を可視化",
+              },
+              {
+                href: "/tools/cost-comparison",
+                emoji: "⚖️",
+                title: "AIツール月額費用比較ツール",
+                desc: "ChatGPT・Claude・Geminiを比較",
+              },
+            ].map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{tool.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {tool.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{tool.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  無料で計算する →
+                </span>
+              </Link>
             ))}
           </div>
         </section>

@@ -3,7 +3,8 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
-import { AI_TOOLS } from "@/data/ai-pricing";
+import Breadcrumb from "@/components/Breadcrumb";
+import { AI_TOOLS, DATA_UPDATED_AT } from "@/data/ai-pricing";
 
 const FEATURES = [
   { id: "text", label: "テキスト生成", emoji: "✏️" },
@@ -30,6 +31,18 @@ function getBestPlanCost(toolId: string, users: number): { planName: string; tot
   return { planName: chosen.name, total, perUser: chosen.monthlyJPY };
 }
 
+const webAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "AIツール月額費用比較ツール",
+  url: "https://ai-agent-tools.kuras-plus.com/tools/cost-comparison",
+  description:
+    "利用人数・月間利用回数・必要機能を選ぶと、ChatGPT・Claude・Gemini・Copilotの月額費用を比較表で表示。コスパランキング付き。",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "All",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
+};
+
 export default function CostComparisonPage() {
   const [users, setUsers] = useState(5);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>(["text", "code"]);
@@ -54,9 +67,19 @@ export default function CostComparisonPage() {
 
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: "var(--bg)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <Header toolName="費用比較" toolEmoji="⚖️" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "費用比較ツール" },
+          ]}
+        />
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>
             AIツール月額費用比較ツール
@@ -65,7 +88,7 @@ export default function CostComparisonPage() {
             利用人数と必要機能を選ぶと、主要AIツールの月額費用を比較します。
           </p>
           <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
-            ※ 料金は2026年3月時点。最新情報は各公式サイトをご確認ください。
+            ※ データ更新: {DATA_UPDATED_AT}時点。最新情報は各公式サイトをご確認ください。
           </p>
         </div>
 
@@ -298,7 +321,7 @@ export default function CostComparisonPage() {
           </div>
         </section>
 
-        <section className="mt-10">
+        <section className="mt-12">
           <FAQ
             title="費用比較ツールについてよくある質問"
             items={[
@@ -316,6 +339,51 @@ export default function CostComparisonPage() {
               },
             ]}
           />
+        </section>
+
+        {/* ── 関連記事 ── */}
+        <section className="mt-12">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            📖 関連記事
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/articles/ai-tool-comparison-2026",
+                emoji: "📊",
+                title: "AIツール料金・性能比較【2026年最新】",
+                desc: "ChatGPT vs Claude vs Gemini vs Copilot 徹底比較",
+              },
+              {
+                href: "/articles/how-to-calculate-ai-roi",
+                emoji: "💹",
+                title: "AI導入のROIを計算する方法",
+                desc: "経営者向けROI計算式と意思決定フレームワーク",
+              },
+              {
+                href: "/articles/prompt-engineering-guide",
+                emoji: "✏️",
+                title: "プロンプトエンジニアリング入門",
+                desc: "APIコスト削減テクニックも解説",
+              },
+            ].map((article) => (
+              <a
+                key={article.href}
+                href={article.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{article.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {article.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{article.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  記事を読む →
+                </span>
+              </a>
+            ))}
+          </div>
         </section>
       </main>
     </div>

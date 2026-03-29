@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import FAQ from "@/components/FAQ";
+import Breadcrumb from "@/components/Breadcrumb";
 
 interface ModelPricing {
   id: string;
@@ -109,6 +110,18 @@ function calcMonthlyCost(model: ModelPricing, inputTokens: number, outputTokens:
   return (inputCostUSD + outputCostUSD) * USD_TO_JPY;
 }
 
+const webAppJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "プロンプトコスト計算機",
+  url: "https://ai-agent-tools.kuras-plus.com/tools/prompt-cost-calculator",
+  description:
+    "モデル・入力/出力トークン数・月間利用回数を入力すると月間API費用を算出。GPT-4o/Claude/Geminiの費用比較とコスト最適化提案も。",
+  applicationCategory: "BusinessApplication",
+  operatingSystem: "All",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
+};
+
 export default function PromptCostCalculatorPage() {
   const [selectedModelId, setSelectedModelId] = useState("claude-sonnet");
   const [inputTokens, setInputTokens] = useState(1000);
@@ -129,9 +142,19 @@ export default function PromptCostCalculatorPage() {
 
   return (
     <div className="flex flex-col min-h-screen" style={{ backgroundColor: "var(--bg)" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webAppJsonLd) }}
+      />
       <Header toolName="プロンプトコスト計算機" toolEmoji="🔢" />
 
       <main className="flex-1 max-w-4xl mx-auto w-full px-4 py-8">
+        <Breadcrumb
+          items={[
+            { label: "ホーム", href: "/" },
+            { label: "プロンプトコスト計算機" },
+          ]}
+        />
         <div className="mb-8">
           <h1 className="text-2xl font-bold mb-2" style={{ color: "var(--text)" }}>
             プロンプトコスト計算機
@@ -140,7 +163,7 @@ export default function PromptCostCalculatorPage() {
             使用モデルとトークン数を入力すると月間API費用を計算し、モデル間で比較します。
           </p>
           <p className="text-xs mt-1" style={{ color: "var(--text-muted)" }}>
-            ※ 料金は2026年3月時点、1USD=150円換算。実際のレートをご確認ください。
+            ※ データ更新: 2026年3月時点、1USD=150円換算。実際のレートをご確認ください。
           </p>
         </div>
 
@@ -389,7 +412,7 @@ export default function PromptCostCalculatorPage() {
           </div>
         </section>
 
-        <section className="mt-10">
+        <section className="mt-12">
           <FAQ
             title="プロンプトコスト計算機についてよくある質問"
             items={[
@@ -407,6 +430,51 @@ export default function PromptCostCalculatorPage() {
               },
             ]}
           />
+        </section>
+
+        {/* ── 関連記事 ── */}
+        <section className="mt-12">
+          <h2 className="text-base font-bold mb-4" style={{ color: "var(--text)" }}>
+            📖 関連記事
+          </h2>
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              {
+                href: "/articles/prompt-engineering-guide",
+                emoji: "✏️",
+                title: "プロンプトエンジニアリング入門",
+                desc: "APIコスト削減テクニックも詳しく解説",
+              },
+              {
+                href: "/articles/ai-tool-comparison-2026",
+                emoji: "📊",
+                title: "AIツール料金・性能比較【2026年最新】",
+                desc: "ChatGPT vs Claude vs Gemini vs Copilot",
+              },
+              {
+                href: "/articles/what-is-agentic-ai",
+                emoji: "🤖",
+                title: "エージェンティックAIとは？",
+                desc: "2026年に知っておくべき新概念を解説",
+              },
+            ].map((article) => (
+              <a
+                key={article.href}
+                href={article.href}
+                className="rounded-xl border p-4 flex flex-col gap-2 transition-all hover:shadow-md"
+                style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border)" }}
+              >
+                <span className="text-xl">{article.emoji}</span>
+                <p className="text-sm font-bold" style={{ color: "var(--text)" }}>
+                  {article.title}
+                </p>
+                <p className="text-xs" style={{ color: "var(--text-muted)" }}>{article.desc}</p>
+                <span className="text-xs font-semibold mt-auto" style={{ color: "var(--primary)" }}>
+                  記事を読む →
+                </span>
+              </a>
+            ))}
+          </div>
         </section>
       </main>
     </div>
