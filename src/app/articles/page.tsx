@@ -9,6 +9,36 @@ export const metadata: Metadata = {
 
 const articles = [
   {
+    href: "/articles/ai-agent-tools-comparison-2026",
+    emoji: "📊",
+    tag: "比較",
+    tagColor: "#fce7f3",
+    tagText: "#9d174d",
+    title: "AIエージェントツール比較2026年版10選｜おすすめランキング",
+    summary: "Microsoft 365 Copilot・Dify・MANA Studio・Google Vertex AI・Salesforce Agentforceなど主要10ツールを価格・カスタマイズ性・ノーコード対応・日本語対応で徹底比較。",
+    readTime: "14分",
+  },
+  {
+    href: "/articles/dify-mana-studio-guide",
+    emoji: "🛠️",
+    tag: "実践",
+    tagColor: "#dcfce7",
+    tagText: "#15803d",
+    title: "Dify・MANA Studioで業務用AIエージェントを作る方法【2026年版】",
+    summary: "Difyのセットアップ・RAGチャットボット構築手順と、MANA Studioの自然言語エージェント構築を実践的に解説。AIエージェント作り方の完全ガイド。",
+    readTime: "15分",
+  },
+  {
+    href: "/articles/ai-agent-introduction-guide",
+    emoji: "🚀",
+    tag: "経営",
+    tagColor: "#fef3c7",
+    tagText: "#92400e",
+    title: "業務自動化AIエージェント導入完全ガイド2026｜ステップ・ROI・事例",
+    summary: "AIエージェントとは何か、チャットボットとの違い、課題整理→PoC→本番導入のステップ、ROI試算、成功事例・失敗パターンを体系的に解説。",
+    readTime: "16分",
+  },
+  {
     href: "/articles/what-is-agentic-ai",
     emoji: "🤖",
     tag: "入門",

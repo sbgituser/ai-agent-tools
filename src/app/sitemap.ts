@@ -14,6 +14,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const articleUrls = [
     "/articles",
+    "/articles/ai-agent-tools-comparison-2026",
+    "/articles/dify-mana-studio-guide",
+    "/articles/ai-agent-introduction-guide",
     "/articles/what-is-agentic-ai",
     "/articles/ai-tool-comparison-2026",
     "/articles/ai-agent-automation-use-cases",
